@@ -141,6 +141,14 @@ module Pageflow
       expect(AccountPolicy::Scope.new(user, Account).resolve).to include(create(:account))
     end
 
+    it 'includes accounts with invitations with correct user, correct account and ' \
+       'sufficient role' do
+      user = create(:user)
+      account = create(:account, invite_member: user)
+
+      expect(AccountPolicy::Scope.new(user, Account).resolve).to include(account)
+    end
+
     it 'includes accounts with memberships with correct user, correct account and ' \
        'sufficient role' do
       user = create(:user)
@@ -149,9 +157,18 @@ module Pageflow
       expect(AccountPolicy::Scope.new(user, Account).resolve).to include(account)
     end
 
-    it 'does not include accounts with memberships with wrong entity id/insufficient role' do
+    it 'does not include accounts with invitations or memberships exclusively with wrong '\
+       'entity id/insufficient role' do
       user = create(:user)
       account = create(:account)
+
+      expect(AccountPolicy::Scope.new(user, Account).resolve).not_to include(account)
+    end
+
+    it 'does not include accounts with invitations with wrong user' do
+      user = create(:user)
+      wrong_user = create(:user)
+      account = create(:account, invite_member: wrong_user)
 
       expect(AccountPolicy::Scope.new(user, Account).resolve).not_to include(account)
     end
@@ -160,6 +177,14 @@ module Pageflow
       user = create(:user)
       wrong_user = create(:user)
       account = create(:account, with_member: wrong_user)
+
+      expect(AccountPolicy::Scope.new(user, Account).resolve).not_to include(account)
+    end
+
+    it 'does not include accounts with invitation with nil account id' do
+      user = create(:user)
+      account = Account.new
+      create(:invitation, user: user, entity: account)
 
       expect(AccountPolicy::Scope.new(user, Account).resolve).not_to include(account)
     end

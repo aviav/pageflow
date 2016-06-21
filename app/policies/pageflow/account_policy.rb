@@ -12,7 +12,8 @@ module Pageflow
         if user.admin?
           scope.all
         else
-          scope.joins(memberships_for_account(user)).where(membership_is_present)
+          scope.joins(memberships_for_account(user)).joins(invitations_for_account(user))
+            .where(membership_or_invitation_is_present)
         end
       end
 
@@ -50,6 +51,16 @@ module Pageflow
         ActiveRecord::Base.send(:sanitize_sql_array, array)
       end
 
+      def invitations_for_account(user)
+        sanitize_sql_array(['LEFT OUTER JOIN pageflow_invitations ON ' \
+                            'pageflow_invitations.user_id = :user_id AND ' \
+                            'pageflow_invitations.entity_id = pageflow_accounts.id AND ' \
+                            'pageflow_invitations.entity_type = "Pageflow::Account" AND ' \
+                            'pageflow_invitations.role IN '\
+                            '("member", "previewer", "editor", "publisher", "manager")',
+                            user_id: user.id])
+      end
+
       def memberships_for_account(user)
         sanitize_sql_array(['LEFT OUTER JOIN pageflow_memberships ON ' \
                             'pageflow_memberships.user_id = :user_id AND ' \
@@ -80,6 +91,10 @@ module Pageflow
 
       def membership_is_present
         'pageflow_memberships.entity_id IS NOT NULL'
+      end
+
+      def membership_or_invitation_is_present
+        'pageflow_memberships.entity_id IS NOT NULL OR pageflow_invitations.entity_id IS NOT NULL'
       end
     end
 
