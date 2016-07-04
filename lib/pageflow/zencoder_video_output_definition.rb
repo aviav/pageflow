@@ -1,6 +1,6 @@
 module Pageflow
   class ZencoderVideoOutputDefinition < ZencoderOutputDefinition
-    cattr_accessor :skip_hls
+    cattr_accessor :skip_hls, :skip_smil
 
     attr_reader :video_file
 
@@ -14,7 +14,7 @@ module Pageflow
     end
 
     def outputs
-      [
+      returned_outputs = [
         transferable(webm_high_definition),
         transferable(webm_medium_definition),
         transferable(mp4_high_definition),
@@ -22,10 +22,11 @@ module Pageflow
         transferable(mp4_low_definition),
 
         hls_definitions,
-        non_transferable(smil_definition),
 
         thumbnails_definitions
-      ].flatten
+      ]
+      returned_outputs += non_transferable(smil_definition) unless skip_smil
+      returned_outputs.flatten
     end
 
     private
