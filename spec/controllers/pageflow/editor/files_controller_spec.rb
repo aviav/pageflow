@@ -139,6 +139,48 @@ module Pageflow
         expect(response.status).to eq(401)
       end
 
+      it 'allows to create file with associated parent file' do
+        user = create(:user)
+        entry = create(:entry, with_editor: user)
+        parent_file = create(:video_file)
+
+        sign_in(user)
+        acquire_edit_lock(user, entry)
+
+        post(:create,
+             entry_id: entry,
+             collection_name: 'text_track_files',
+             text_track_file: {attachment: fixture_upload,
+                               parent_file_id: parent_file.id,
+                               parent_file_model_type: 'Pageflow::VideoFile'},
+             format: 'json'
+            )
+
+        expect(parent_file.nested_files(Pageflow::TextTrackFile)).not_to be_empty
+        expect(response.status).to eq(200)
+      end
+
+      it 'does not allow to create file with associated parent file of non-permitted type' do
+        user = create(:user)
+        entry = create(:entry, with_editor: user)
+        parent_file = create(:image_file)
+
+        sign_in(user)
+        acquire_edit_lock(user, entry)
+
+        post(:create,
+             entry_id: entry,
+             collection_name: 'image_files',
+             image_file: {attachment: fixture_upload,
+                          parent_file_id: parent_file.id,
+                          parent_file_model_type: 'Pageflow::ImageFile'},
+             format: 'json'
+            )
+
+        expect(parent_file.nested_files(Pageflow::ImageFile)).to be_empty
+        expect(response.status).to eq(400)
+      end
+
       def fixture_upload
         fixture_file_upload(Engine.root.join('spec', 'fixtures', 'image.jpg'), 'image/jpeg')
       end
