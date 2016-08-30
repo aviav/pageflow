@@ -39,7 +39,7 @@ module Pageflow
       model
         .select("#{model_table_name}.*")
         .where("#{model_table_name}.parent_file_id = #{id} AND "\
-              "#{model_table_name}.parent_file_model_type = '#{self.class.name}'")
+               "#{model_table_name}.parent_file_model_type = '#{self.class.name}'")
     end
 
     private
