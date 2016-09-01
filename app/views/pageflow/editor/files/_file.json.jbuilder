@@ -18,3 +18,14 @@ if file.respond_to?(:thumbnail_url)
   json.thumbnail_url(asset_path(file.thumbnail_url(:thumbnail)))
   json.link_thumbnail_url(asset_path(file.thumbnail_url(:link_thumbnail_large)))
 end
+
+file_type.nested_file_types.each do |nested_file_type|
+  json.set! 'nested_files' do
+    json.set! nested_file_type.collection_name.pluralize do
+      json.partial!(partial: 'pageflow/editor/files/file',
+                    collection: file.nested_files(nested_file_type.model),
+                    locals: {file_type: nested_file_type},
+                    as: :file)
+    end
+  end
+end
