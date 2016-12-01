@@ -21,6 +21,8 @@
 //= require iscroll
 //= require audio5.min
 //= require video
+//= require dash.all
+//= require videojs-dash
 //= require jquery.fullscreen
 //= require jquery.placeholder
 
