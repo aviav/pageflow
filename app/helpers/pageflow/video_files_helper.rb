@@ -115,9 +115,9 @@ module Pageflow
     def video_file_sources(video_file, options = {})
       [
         {
-          type: 'video/webm',
-          src: video_file.webm_medium.url(options),
-          high_src: video_file.webm_high.url(options)
+          type: 'application/dash+xml',
+          src: video_file.dash_playlist.url(options),
+          high_src: video_file.dash_playlist.url(options)
         },
         {
           type: 'application/x-mpegURL',
@@ -126,7 +126,7 @@ module Pageflow
         },
         {
           type: 'video/mp4',
-          src: video_file.mp4_medium.url(options),
+          src: video_file.mp4_low.url(options),
           high_src: video_file.mp4_high.url(options)
         }
       ]

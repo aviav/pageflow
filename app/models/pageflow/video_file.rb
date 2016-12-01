@@ -40,14 +40,6 @@ module Pageflow
       "s3://#{File.join(attachment_on_s3.bucket_name, attachment_on_s3.path)}"
     end
 
-    def webm_high
-      ZencoderAttachment.new(self, 'high.webm')
-    end
-
-    def webm_medium
-      ZencoderAttachment.new(self, 'medium.webm')
-    end
-
     def mp4_4k
       ZencoderAttachment.new(self, '4k.mp4')
     end

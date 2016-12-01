@@ -32,7 +32,7 @@ module Pageflow
 
         html = helper.video_file_video_tag(video_file)
 
-        expect(html).to have_selector('source[src*="200/medium.mp4"]')
+        expect(html).to have_selector('source[src*="200/low.mp4"]')
         expect(html).to have_selector('source[data-high-src*="200/high.mp4"]')
       end
 
