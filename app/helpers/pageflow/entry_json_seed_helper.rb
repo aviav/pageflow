@@ -7,8 +7,10 @@ module Pageflow
     include CommonEntrySeedHelper
 
     def entry_json_seed(entry)
-      sanitize_json(render_json_partial('pageflow/entry_json_seed/entry',
-                                        entry: entry)).html_safe
+      Pageflow.config.instrument.call("entry_json_seed.pageflow") do
+        sanitize_json(render_json_partial('pageflow/entry_json_seed/entry',
+                                          entry: entry)).html_safe
+      end
     end
 
     def entry_theming_seed(entry)
