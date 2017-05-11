@@ -15,7 +15,7 @@ export default function(videoFile, quality, {hasHighBandwidth} = {}) {
       }
     ];
 
-    if (videoFile.urls['dash-playlist']) {
+    if (videoFile.urls['dash-playlist'] && !window.NO_DASH) {
       result = [
         {
           type: 'application/dash+xml',
