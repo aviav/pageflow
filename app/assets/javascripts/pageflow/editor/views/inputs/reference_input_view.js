@@ -13,8 +13,8 @@ pageflow.ReferenceInputView = Backbone.Marionette.ItemView.extend({
     'click .choose': function() {
       var view = this;
 
-      this.choose().then(function(site) {
-        view.model.set(view.options.propertyName, site.get('perma_id'));
+      this.chooseValue().then(function(id) {
+        view.model.set(view.options.propertyName, id);
       });
 
       return false;
@@ -35,6 +35,12 @@ pageflow.ReferenceInputView = Backbone.Marionette.ItemView.extend({
     this.listenTo(this.model, 'change:' + this.options.propertyName, this.update);
   },
 
+  chooseValue: function() {
+    return this.choose().then(function(model) {
+      return model.get('perma_id');
+    });
+  },
+
   choose: function() {
     throw 'Not implemented: Override ReferenceInputView#choose to return a promise';
   },
@@ -44,16 +50,20 @@ pageflow.ReferenceInputView = Backbone.Marionette.ItemView.extend({
   },
 
   createThumbnailView: function(target) {
-    return new pageflow.ModelThumbnailView({
+    return new pageflow.ModelThumbnailView(this.thumbnailViewOptions(target));
+  },
+
+  thumbnailViewOptions: function(target) {
+    return {
       model: target
-    });
+    };
   },
 
   update: function() {
     var target = this.getTarget(this.model.get(this.options.propertyName));
 
     this.ui.title.text(target ? target.title() : I18n.t('pageflow.editor.views.inputs.reference_input_view.none'));
-    this.ui.unsetButton.toggle(!!target);
+    this.ui.unsetButton.toggle(!!target && !this.options.hideUnsetButton);
 
     if (this.thumbnailView) {
       this.thumbnailView.close();

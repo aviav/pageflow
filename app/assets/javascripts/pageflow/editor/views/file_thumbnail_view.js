@@ -16,6 +16,8 @@ pageflow.FileThumbnailView = Backbone.Marionette.ItemView.extend({
 
   update: function() {
     if (this.model) {
+      console.log('update in FileThumbnailView');
+      console.log(this.model);
       var stage = this.model.currentStage();
 
       if (stage) {
@@ -50,6 +52,9 @@ pageflow.FileThumbnailView = Backbone.Marionette.ItemView.extend({
   },
 
   _imageUrl: function() {
+    console.log('inside _imageUrl');
+    console.log(this.model);
+    console.log(this.options);
     return this.model.get(this.options.imageUrlPropertyName || 'thumbnail_url');
   }
 });

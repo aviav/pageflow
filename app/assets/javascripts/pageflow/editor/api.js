@@ -149,6 +149,10 @@ pageflow.EditorApi = pageflow.Object.extend({
       return pageflow.PageSelectionView.selectPage(options);
     };
 
+    this.changeTheme = function(options) {
+      return pageflow.ChangeThemeDialogView.changeTheme(options);
+    };
+
     /**
      * Failures API
      *
