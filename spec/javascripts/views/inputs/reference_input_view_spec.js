@@ -17,7 +17,7 @@ describe('pageflow.ReferenceInputView', function() {
         deferred.resolve(new Backbone.Model ({
           perma_id: 'this id are belong to us'
         }));
-      });
+      }).promise();
     }
   });
 
@@ -56,7 +56,11 @@ describe('pageflow.ReferenceInputView', function() {
         propertyName: 'some_id'
       });
 
+      var value = Promise.resolve(view.chooseValue()).then(function(value) {
+        return value;
+      });
       view.render();
+      console.log(value);
 
       expect(view.chooseValue()).to.contain('belong to us');
     });
