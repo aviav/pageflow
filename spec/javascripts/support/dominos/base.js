@@ -21,6 +21,18 @@ support.dom.Base.classMethods = function(Constructor) {
       }
 
       return new Constructor(element);
+    },
+
+    findFirstIn: function(view) {
+      var selector = Constructor.prototype.selector;
+      var elements = view.$el.find(selector);
+
+      if (element.length === 0) {
+        throw new Error('Selector "' + selector + '" did not match any elements in view.');
+      }
+
+      var firstElement = elements.first();
+      return new Constructor(element);
     }
   };
 };

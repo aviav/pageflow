@@ -2,6 +2,7 @@
 pageflow.ThemeItemView = Backbone.Marionette.ItemView.extend({
   tagName: 'li',
   template: 'pageflow/editor/templates/theme_item',
+  className: 'theme_item',
 
   mixins: [pageflow.selectableView],
 
