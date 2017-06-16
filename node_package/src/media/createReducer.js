@@ -8,7 +8,8 @@ import {
   USER_INTERACTION, USER_IDLE,
   CONTROLS_ENTERED, CONTROLS_LEFT,
   FOCUS_ENTERED_CONTROLS, FOCUS_LEFT_CONTROLS,
-  CONTROLS_HIDDEN, INFO_BOX_VISIBLE, INFO_BOX_HIDDEN
+  CONTROLS_HIDDEN, INFO_BOX_VISIBLE, INFO_BOX_HIDDEN,
+  SAVE_MEDIA_ELEMENT_ID, DISCARD_MEDIA_ELEMENT_ID
 } from './actions';
 
 import {HOTKEY_TAB} from 'hotkeys/actions';
@@ -226,6 +227,16 @@ export default function({scope = 'default'} = {}) {
         infoBoxHidden: false
       };
 
+    case SAVE_MEDIA_ELEMENT_ID:
+      return {
+        ...state,
+        mediaElementId: action.payload.id
+      };
+    case DISCARD_MEDIA_ELEMENT_ID:
+      return {
+        ...state,
+        mediaElementId: null
+      };
 
     default:
       return state;

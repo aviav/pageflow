@@ -41,6 +41,9 @@ export const CONTROLS_HIDDEN = 'MEDIA_CONTROLS_HIDDEN';
 export const INFO_BOX_VISIBLE = 'INFO_BOX_VISIBLE';
 export const INFO_BOX_HIDDEN = 'INFO_BOX_HIDDEN';
 
+export const SAVE_MEDIA_ELEMENT_ID = 'MEDIA_SAVE_MEDIA_ELEMENT_ID';
+export const DISCARD_MEDIA_ELEMENT_ID = 'MEDIA_DISCARD_MEDIA_ELEMENT_ID';
+
 export function actionCreators({scope = 'default'} = {}) {
   return {
     togglePlaying() {
@@ -187,6 +190,14 @@ export function actionCreators({scope = 'default'} = {}) {
 
     infoBoxHidden() {
       return pageAction(INFO_BOX_HIDDEN);
+    },
+
+    saveMediaElementId(id) {
+      return pageAction(SAVE_MEDIA_ELEMENT_ID, {id});
+    },
+
+    discardMediaElementId() {
+      return pageAction(DISCARD_MEDIA_ELEMENT_ID);
     },
   };
 

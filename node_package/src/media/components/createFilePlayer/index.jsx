@@ -48,6 +48,8 @@ export default function({
           playsInline: props.playsInline
         });
 
+        this.props.playerActions.saveMediaElementId(element.id);
+
         initPlayerFromPlayerState(this.player,
                                   () => this.props.playerState,
                                   this.props.playerActions,
@@ -68,6 +70,8 @@ export default function({
       this.disposeMediaTag = () => {
         this.player.dispose();
         this.player = null;
+
+        this.props.playerActions.discardMediaElementId();
       };
     }
 
