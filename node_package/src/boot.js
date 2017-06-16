@@ -15,6 +15,7 @@ import entryModule from 'entry';
 import hotkeysModule from 'hotkeys';
 import hideTextModule from 'hideText';
 import widgetsModule, {createWidgetType} from 'widgets';
+import themeModule from 'theme';
 
 export default function(pageflow) {
   const isEditor = !!pageflow.storylines;
@@ -60,7 +61,8 @@ export default function(pageflow) {
     hideTextModule,
     widgetsModule,
     pageTypesModule,
-    hotkeysModule
+    hotkeysModule,
+    themeModule
   ], options);
 
 
