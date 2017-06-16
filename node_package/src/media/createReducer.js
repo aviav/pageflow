@@ -53,6 +53,7 @@ export default function({scope = 'default'} = {}) {
     case PLAYING:
       return {
         ...state,
+        shouldPlay: true,
         isPlaying: true
       };
     case PLAY_AND_FADE_IN:
