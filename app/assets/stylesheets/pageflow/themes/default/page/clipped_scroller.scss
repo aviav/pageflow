@@ -1,0 +1,4 @@
+.scroller-clipped_bottom {
+  overflow: hidden;
+  @include mask-bottom;
+}
