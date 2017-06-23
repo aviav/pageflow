@@ -5,6 +5,7 @@ Pageflow.configure do |config|
 
   # Plugins provide page types and widget types.
   config.plugin(Pageflow.built_in_page_types_plugin)
+  config.plugin(Pageflow.built_in_widget_types_plugin)
   # config.plugin(Pageflow::Rainbow.plugin)
 
   # Add custom themes by invoking the pageflow:theme generator and

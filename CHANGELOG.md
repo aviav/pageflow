@@ -1,5 +1,49 @@
 # CHANGELOG
 
+### Version 12.0.0.rc5
+
+2017-05-31
+
+[Compare changes](https://github.com/codevise/pageflow/compare/v12.0.0.rc4...v12.0.0.rc5)
+
+#### Breaking Changes
+
+- The built-in widget types must now be registered in the host
+  application.
+  ([#774](https://github.com/codevise/pageflow/pull/774),
+   [#776](https://github.com/codevise/pageflow/pull/776))
+
+  To keep existing functionality from previous Pageflow versions, add
+  this line to the Pageflow initializer in your host application:
+
+        config.plugin(Pageflow.built_in_widget_types_plugin)
+
+##### Bug Fixes
+
+- Upgrade to Sinon 2
+  ([#777](https://github.com/codevise/pageflow/pull/777))
+- Bug fix: Mark %pageflow_widget_margin_right optional
+  ([#773](https://github.com/codevise/pageflow/pull/773))
+
+### Version 12.0.0.rc4
+
+2017-05-23
+
+[Compare changes](https://github.com/codevise/pageflow/compare/v12.0.0.rc3...v12.0.0.rc4)
+
+##### Breaking Changes
+
+- Remove legacy theme files. All themes have to be based on the
+  default theme.
+  ([#768](https://github.com/codevise/pageflow/pull/768))
+
+##### Bug Fixes
+
+- Bug fix: Fix exception when sorting user accounts table by role
+  ([#769](https://github.com/codevise/pageflow/pull/769))
+- Bug fix: Change roles.high to not expect account membership
+  ([#766](https://github.com/codevise/pageflow/pull/766))
+
 ### Version 12.0.0.rc3
 
 2017-05-12
