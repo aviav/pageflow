@@ -297,7 +297,7 @@ module Pageflow
 
       @available_text_track_kinds = [:captions, :subtitles, :descriptions]
 
-      @instrument = ->(*) { yield }
+      @instrument = ->(*, &block) { block.call if block }
     end
 
     # Activate a plugin.
