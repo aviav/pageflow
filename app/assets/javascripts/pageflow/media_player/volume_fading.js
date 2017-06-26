@@ -4,14 +4,22 @@ pageflow.mediaPlayer.volumeFading = function(player) {
   var fadeVolumeInterval;
 
   player.volume = function(value) {
+    console.log('volume called with value '+ value);
     if (typeof value !== 'undefined') {
       cancelFadeVolume();
     }
+    console.log(originalVolume);
+    console.log(player);
+    console.log(arguments);
 
     return originalVolume.apply(player, arguments);
   };
 
   player.fadeVolume = function(value, duration) {
+    console.log('fadeVolume called');
+    if (pageflow.browser.has('webaudio support')) {
+      console.log('We have webaudio support');
+    }
     if (!pageflow.browser.has('volume control support')) {
       return new jQuery.Deferred().resolve().promise();
     }
@@ -49,6 +57,7 @@ pageflow.mediaPlayer.volumeFading = function(player) {
   player.one('dispose', cancelFadeVolume);
 
   function resolveFadeVolume() {
+    console.log('resolveFadeVolume called');
     clearInterval(fadeVolumeInterval);
     fadeVolumeDeferred.resolve();
 
@@ -57,6 +66,7 @@ pageflow.mediaPlayer.volumeFading = function(player) {
   }
 
   function cancelFadeVolume() {
+    console.log('cancelFadeVolume called');
     if (fadeVolumeInterval) {
       clearInterval(fadeVolumeInterval);
       fadeVolumeDeferred.reject();
