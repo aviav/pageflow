@@ -12,6 +12,9 @@ pageflow.mediaPlayer.volumeFading = function(player) {
   };
 
   player.fadeVolume = function(value, duration) {
+    if (value === 0) {
+      throw new Error('Value must be greater than zero in exponential fading');
+    }
     if (!pageflow.browser.has('volume control support')) {
       return new jQuery.Deferred().resolve().promise();
     }
@@ -20,9 +23,10 @@ pageflow.mediaPlayer.volumeFading = function(player) {
 
     return new $.Deferred(function(deferred) {
       var resolution = 10;
-      var startValue = volume();
-      var steps = duration / resolution;
-      var leap = (value - startValue) / steps;
+      var startValue = player.preventZero(volume());
+      // exponent is divided by steps, so we need inverseSteps = 1/steps
+      var inverseSteps = resolution / duration;
+      var factor = Math.pow(value / startValue, inverseSteps);
 
       if (value === startValue) {
         deferred.resolve();
@@ -30,7 +34,7 @@ pageflow.mediaPlayer.volumeFading = function(player) {
       else {
         fadeVolumeDeferred = deferred;
         fadeVolumeInterval = setInterval(function() {
-          volume(volume() + leap);
+          volume(player.preventZero(volume()) * factor);
 
           if ((volume() >= value && value >= startValue) ||
               (volume() <= value && value <= startValue)) {

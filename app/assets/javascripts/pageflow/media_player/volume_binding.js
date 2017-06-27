@@ -42,7 +42,7 @@ pageflow.mediaPlayer.volumeBinding = function(player, settings, options) {
     player.intendToPause();
     stopListeningToVolumeSetting();
 
-    return player.fadeVolume(0, duration).always(function() {
+    return player.fadeVolume(player.preventZero(0), duration).always(function() {
       return player.ifIntendingToPause().then(function() {
         originalPause.call(player);
       });
@@ -55,7 +55,7 @@ pageflow.mediaPlayer.volumeBinding = function(player, settings, options) {
   };
 
   player.targetVolume = function() {
-    return settings.get('volume') * volumeFactor;
+    return player.preventZero(settings.get('volume') * volumeFactor);
   };
 
   function listenToVolumeSetting() {

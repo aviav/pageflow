@@ -1,4 +1,5 @@
 //= require_self
+//= require ./media_player/prevent_zero
 //= require ./media_player/volume_fading
 //= require ./media_player/volume_binding
 //= require ./media_player/load_waiting
@@ -8,6 +9,7 @@
 pageflow.mediaPlayer = {
   enhance: function(player, options) {
     pageflow.mediaPlayer.asyncPlay(player);
+    pageflow.mediaPlayer.preventZero(player);
 
     if (options.hooks) {
       pageflow.mediaPlayer.hooks(player, options.hooks);
