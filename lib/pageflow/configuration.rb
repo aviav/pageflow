@@ -257,6 +257,11 @@ module Pageflow
     # @since edge
     attr_accessor :allow_multiaccount_users
 
+    # Options hash for account admin menu. Options from config precede
+    # defaults.
+    # @since edge
+    attr_accessor :account_admin_menu_options
+
     def initialize
       @paperclip_filesystem_default_options = {validate_media_type: false}
       @paperclip_s3_default_options = {validate_media_type: false}
@@ -301,6 +306,8 @@ module Pageflow
       @available_text_track_kinds = [:captions, :subtitles, :descriptions]
 
       @allow_multiaccount_users = true
+
+      @account_admin_menu_options = {}
     end
 
     # Activate a plugin.
