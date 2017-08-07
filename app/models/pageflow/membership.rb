@@ -44,7 +44,7 @@ module Pageflow
     end
 
     def first_account_membership
-      unless user.accounts.empty?
+      unless user.accounts.empty? || entity == user.accounts.first
         errors[:base] << 'Only one account per user allowed'
       end
     end
