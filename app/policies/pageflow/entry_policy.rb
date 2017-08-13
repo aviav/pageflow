@@ -87,7 +87,8 @@ module Pageflow
     end
 
     def create?
-      publish? && AccountPolicy::Scope.new(user, Account).entry_creatable.any?
+      query.has_at_least_account_role?(:publisher) &&
+        AccountPolicy::Scope.new(user, Account).entry_creatable.any?
     end
 
     def duplicate?
