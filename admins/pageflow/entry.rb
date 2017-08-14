@@ -170,7 +170,7 @@ module Pageflow
       end
 
       def action_methods
-        if account_policy_scope.entry_creatable.any?
+        if account_policy_scope&.entry_creatable&.any?
           super
         else
           super - ['new']
@@ -201,7 +201,7 @@ module Pageflow
       private
 
       def account_policy_scope
-        AccountPolicy::Scope.new(current_user, Account)
+        AccountPolicy::Scope.new(current_user, Account) if current_user
       end
 
       def theming_policy_scope
