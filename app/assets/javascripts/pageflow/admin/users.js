@@ -25,11 +25,13 @@ jQuery(function($) {
     }
 
     function disableCreateUserButton() {
-      $('#user_submit_action input', that).addClass('disabled');
+      $('#user_submit_action input', that).addClass('disabled')
+        .prop('disabled', true);
     }
 
     function enableCreateUserButton() {
-      $('#user_submit_action input', that).removeClass('disabled');
+      $('#user_submit_action input', that).removeClass('disabled')
+        .prop('disabled', false);
     }
 
     filterQuotaStateDescriptionsBySelectedAccount();
