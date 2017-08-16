@@ -121,7 +121,7 @@ module Pageflow
     end
 
     def update_theming_on?
-      permissions_config.show_theming_dropdown_to_non_admin &&
+      permissions_config.non_admin_may_update_theming &&
         publish_on_account_of?
     end
 
@@ -130,7 +130,7 @@ module Pageflow
     end
 
     def update_feature_configuration_on?
-      permissions_config.show_entry_features_to_non_admin &&
+      permissions_config.non_admin_may_update_features &&
         manage_account_of?
     end
 
