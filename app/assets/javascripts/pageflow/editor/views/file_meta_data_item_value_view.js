@@ -31,6 +31,10 @@ pageflow.FileMetaDataItemValueView = Backbone.Marionette.ItemView.extend({
     }
   },
 
+  modelEvents: {
+    'change': 'toggleEditLink'
+  },
+
   onRender: function() {
     this.listenTo(this.model, 'change:' + this.options.name, this.update);
     this.ui.editLink.toggle(!!this.options.settingsDialogTabLink);
@@ -45,5 +49,10 @@ pageflow.FileMetaDataItemValueView = Backbone.Marionette.ItemView.extend({
 
   getText: function() {
     throw new Error('Not implemented');
+  },
+
+  toggleEditLink: function() {
+    this.ui.editLink.toggle(!!this.options.settingsDialogTabLink &&
+                            !this.model.isNew());
   }
 });
