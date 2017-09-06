@@ -37,7 +37,7 @@ pageflow.FileMetaDataItemValueView = Backbone.Marionette.ItemView.extend({
 
   onRender: function() {
     this.listenTo(this.model, 'change:' + this.options.name, this.update);
-    this.ui.editLink.toggle(!!this.options.settingsDialogTabLink);
+    this.toggleEditLink();
 
     this.update();
   },
