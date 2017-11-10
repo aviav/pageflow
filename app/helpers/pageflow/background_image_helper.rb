@@ -16,8 +16,8 @@ module Pageflow
       end
     end
 
-    def background_image_lazy_loading_css_class(prefix, model)
-      css_class = [prefix, model.id].join('_')
+    def background_image_lazy_loading_css_class(prefix, model, options = {})
+      css_class = join_into_css_class(prefix, model, options)
       ".load_all_images .#{css_class}, .load_image.#{css_class}"
     end
 
@@ -115,6 +115,14 @@ module Pageflow
       def file_type
         Pageflow.config.file_types.find_by_collection_name!(options.fetch(:file_type, 'image_file').pluralize)
       end
+    end
+
+    private
+
+    def join_into_css_class(prefix, model, options)
+      join_array = [prefix, model.id]
+      join_array << options[:style] if options[:style]
+      join_array.join('_')
     end
   end
 end

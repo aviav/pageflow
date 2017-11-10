@@ -19,6 +19,14 @@
       <% end %>
     <% end %>
 
+    <% Pageflow::LinkmapPage::MaskedImageFile.where(entry_id: @entry.id).each do |masked_image_file| %>
+      <% masked_image_file.palette_color_strings.each do |style| %>
+        <%= background_image_lazy_loading_css_class('masked_image', masked_image_file, style: style) %>{
+          background-image: url('<%= masked_image_file.attachment.url(style) %>');
+        }
+      <% end %>
+    <% end %>
+
     <%= file_thumbnails_css(@entry) %>
     <%= render 'pageflow/entries/theming' %>
 <% end %>
