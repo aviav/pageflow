@@ -22,16 +22,15 @@ pageflow.TabsView = Backbone.Marionette.Layout.extend({
   className: 'tabs_view',
 
   ui: {
-    headers: '.tabs_view-headers',
-    scroller: '.tabs_view-scroller'
+    headers: '> ul',
   },
 
   regions: {
-    container: '.tabs_view-container'
+    container: '> div'
   },
 
   events: {
-    'click .tabs_view-headers > li': function(event) {
+    'click > ul > li': function(event) {
       this.changeTab($(event.target).data('tab-name'));
     }
   },
@@ -40,8 +39,6 @@ pageflow.TabsView = Backbone.Marionette.Layout.extend({
     this.tabFactoryFns = {};
     this.tabNames = [];
     this.currentTabName = null;
-
-    this._refreshScrollerOnSideBarResize();
   },
 
   tab: function(name, factoryFn) {
@@ -59,13 +56,6 @@ pageflow.TabsView = Backbone.Marionette.Layout.extend({
           .text(label)
       );
     }, this);
-
-    this.scroller = new IScroll(this.ui.scroller[0], {
-      scrollX: true,
-      scrollY: false,
-      bounce: false,
-      mouseWheel: true
-    });
 
     this.changeTab(this.defaultTab());
   },
@@ -85,18 +75,8 @@ pageflow.TabsView = Backbone.Marionette.Layout.extend({
     }
   },
 
-  /**
-   * Rerender current tab.
-   */
   refresh: function() {
     this.changeTab(this.currentTabName);
-  },
-
-  /**
-   * Adjust tabs scroller to changed width of view.
-   */
-  refreshScroller: function() {
-    this.scroller.refresh();
   },
 
   toggleSpinnerOnTab: function(name, visible) {
@@ -120,24 +100,8 @@ pageflow.TabsView = Backbone.Marionette.Layout.extend({
   },
 
   _updateActiveHeader: function(activeTabName) {
-    var scroller = this.scroller;
-
     this.ui.headers.children().each(function() {
-      if ($(this).data('tab-name') === activeTabName) {
-        scroller.scrollToElement(this, 200, true);
-        $(this).addClass('active');
-      }
-      else {
-        $(this).removeClass('active');
-      }
+      $(this).toggleClass('active', $(this).data('tab-name') === activeTabName);
     });
-  },
-
-  _refreshScrollerOnSideBarResize: function() {
-    if (pageflow.app) {
-      this.listenTo(pageflow.app, 'resize', function() {
-        this.scroller.refresh();
-      });
-    }
   }
 });

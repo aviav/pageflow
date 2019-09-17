@@ -40,16 +40,12 @@ pageflow.EditPageView = Backbone.Marionette.Layout.extend({
     this.model.trigger('edit', this.model);
   },
 
-  onShow: function() {
-    this.configurationEditor.refreshScroller();
-  },
-
   load: function() {
     this.configurationEditor = this.options.api.createPageConfigurationEditorView(this.model, {
       tab: this.options.tab
     });
 
-    this.configurationContainer.show(this.configurationEditor);
+    this.configurationContainer.show(configurationEditor);
   },
 
   destroy: function() {

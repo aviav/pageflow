@@ -1,3 +1,5 @@
+/*global pageflow, IScroll, jQuery*/
+
 jQuery(function($) {
   $.widget('pageflow.overview', {
     _create: function() {

@@ -1,3 +1,5 @@
+/*global IScroll*/
+
 (function($) {
   $.widget('pageflow.navigationMobile', {
     _create: function() {
