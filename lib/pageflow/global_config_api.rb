@@ -44,8 +44,14 @@ module Pageflow
     # @return [Configuration]
     # @since 0.9
     def config_for(target)
-      build_config do |config|
-        config.enable_features(target.enabled_feature_names)
+      config = build_config do |c|
+        c.enable_features(target.enabled_feature_names)
+      end
+      if target.respond_to?(:type_name)
+        config.entry_types.find_config_by_name!(target.type_name) ||
+          Configuration::EntryTypeConfiguration.new(config, target.type_name)
+      else
+        config
       end
     end
 

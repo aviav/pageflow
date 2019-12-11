@@ -6,8 +6,15 @@ module Pageflow
       it 'returns entry type with given name' do
         entry_types = EntryTypes.new
         entry_type = TestEntryType.new(name: 'test')
+        config = Class.new do
+          include Pageflow::Configuration::EntryTypeConfiguration
 
-        entry_types.register(entry_type)
+          def initialize(config)
+            assign_config(config)
+          end
+        end
+
+        entry_types.register(entry_type, config)
         result = entry_types.find_by_name!('test')
 
         expect(result).to be(entry_type)

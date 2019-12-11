@@ -343,6 +343,8 @@ module Pageflow
     # @since 12.2
     attr_accessor :news
 
+    attr_reader :entry_type_config
+
     def initialize
       @paperclip_attachments_version = 'v1'
       @paperclip_s3_root = 'main'
@@ -418,6 +420,8 @@ module Pageflow
       @permissions = Permissions.new
 
       @edit_lock_polling_interval = 15.seconds
+
+      @entry_type_config = {}
     end
 
     # Activate a plugin.
@@ -442,6 +446,15 @@ module Pageflow
 
     def paperclip_filesystem_root=(_val)
       ActiveSupport::Deprecation.warn('Pageflow::Configuration#paperclip_filesystem_root is deprecated.', caller)
+    end
+
+    def for_entry_type(type, &_block)
+      config = entry_types.find_config_by_name!(type.name)
+      yield(config)
+    end
+
+    def decorate_with_type_config(entry_type)
+      EntryTypeConfiguration.new(self, entry_type)
     end
 
     # @api private
@@ -475,6 +488,28 @@ module Pageflow
       delegate :admin_attributes_table_rows, to: :config
       delegate :themes, to: :config
       delegate :file_importers, to: :config
+    end
+
+    module EntryTypeConfiguration
+      def assign_config(value)
+        @config = value
+      end
+
+      def config
+        @config ||= Configuration.new
+      end
+
+      def method_missing(method, *args)
+        if @config.respond_to?(method)
+          config.send(method, *args)
+        else
+          super
+        end
+      end
+
+      def respond_to_missing?(method_name, include_private = false)
+        @config.respond_to?(method_name) || super
+      end
     end
   end
 end

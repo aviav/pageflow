@@ -4,7 +4,7 @@ module Pageflow
   # @since 15.1
   class EntryType
     # @api private
-    attr_reader :name, :frontend_app, :editor_fragment_renderer
+    attr_reader :name, :frontend_app, :editor_fragment_renderer, :entry_type_configuration
 
     # @param name [String] A unique name.
     #
