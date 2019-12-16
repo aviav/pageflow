@@ -499,6 +499,10 @@ module Pageflow
         @config ||= Configuration.new
       end
 
+      def features
+
+      end
+
       def method_missing(method, *args)
         if @config.respond_to?(method)
           config.send(method, *args)

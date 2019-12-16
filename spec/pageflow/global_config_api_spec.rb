@@ -194,6 +194,38 @@ module Pageflow
 
         expect(config_for_target.respond_to?(:phage_types)).to be_falsy
       end
+
+      it 'allows nesting of entry type attributes in features' do
+        phaged_config = Class.new do
+          include Pageflow::Configuration::EntryTypeConfiguration
+
+          attr_accessor :phage_types
+
+          def initialize(config)
+            @phage_types = PageTypes.new
+            assign_config(config)
+          end
+        end
+        entry_type = TestEntryType.new(name: 'phaged')
+        pageflow = PageflowModule.new
+        pageflow.configure do |config|
+          TestEntryType.register(config, name: 'phaged', entry_type_conf: phaged_config.new(config))
+          config.for_entry_type(entry_type) do |c|
+            c.features.register('rainbow_phage_type') do |f|
+              f.phage_types.register(TestPageType.new(name: 'Rainbow'))
+            end
+            c.features.register('snowbow_phage_type') do |f|
+              f.phage_types.register(TestPageType.new(name: 'Snowbow'))
+            end
+          end
+        end
+
+        entry = double('entry', type_name: 'phaged', enabled_feature_names: ['rainbow_page_type'])
+        config_for_target = pageflow.config_for(entry)
+
+        expect(config_for_target.features.enabled?('rainbow_page_type')).to be(true)
+        expect(config_for_target.features.enabled?('snowbow_page_type')).to be(false)
+      end
     end
   end
 end
