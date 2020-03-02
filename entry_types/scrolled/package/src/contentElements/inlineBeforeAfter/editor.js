@@ -5,18 +5,18 @@ import {CheckBoxInputView, TextInputView} from 'pageflow/ui';
 editor.contentElementTypes.register('inlineBeforeAfter', {
   configurationEditor() {
     this.tab('general', function() {
-      this.input('left_id', FileInputView, {
+      this.input('before_id', FileInputView, {
         collection: 'image_files',
         fileSelectionHandler: 'contentElementConfiguration',
       });
-      this.input('left_alt_text', TextInputView);
-      this.input('left_label', TextInputView);
-      this.input('right_id', FileInputView, {
+      this.input('before_alt_text', TextInputView);
+      this.input('before_label', TextInputView);
+      this.input('after_id', FileInputView, {
         collection: 'image_files',
         fileSelectionHandler: 'contentElementConfiguration',
       });
-      this.input('right_alt_text', TextInputView);
-      this.input('right_label', TextInputView);
+      this.input('after_alt_text', TextInputView);
+      this.input('after_label', TextInputView);
       this.input('vertical', CheckBoxInputView);
       this.input('slider', CheckBoxInputView);
       this.input('slider_handle', CheckBoxInputView, {

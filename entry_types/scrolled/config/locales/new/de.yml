@@ -77,18 +77,18 @@ de:
           tabs:
             general: "Vorher/Nachher"
           attributes:
-            left_id:
-              label: Linkes Bild
-            left_alt_text:
-              label: Linker Alt-Text
-            left_label:
-              label: Linke Beschriftung
-            right_id:
-              label: Rechtes Bild
-            right_alt_text:
-              label: Rechter Alt-Text
-            right_label:
-              label: Rechte Beschriftung
+            before_id:
+              label: Vorher-Bild
+            before_alt_text:
+              label: Vorher-Alt-Text
+            before_label:
+              label: Vorher-Beschriftung
+            after_id:
+              label: Nachher-Bild
+            after_alt_text:
+              label: Nachher-Alt-Text
+            after_label:
+              label: Nachher-Beschriftung
             vertical:
               label: Horizontale Trennlinie
             slider:

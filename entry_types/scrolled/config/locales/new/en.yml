@@ -77,18 +77,18 @@ en:
           tabs:
             general: "Before/After"
           attributes:
-            left_id:
-              label: Left Image
-            left_alt_text:
-              label: Left Alt Text
-            left_label:
-              label: Left Label
-            right_id:
-              label: Right Image
-            right_alt_text:
-              label: Right Image
-            right_label:
-              label: Right Label
+            before_id:
+              label: Before Image
+            before_alt_text:
+              label: Before Alt Text
+            before_label:
+              label: Before Label
+            after_id:
+              label: After Image
+            after_alt_text:
+              label: After Alt Text
+            after_label:
+              label: After Label
             vertical:
               label: Horizontal Divider
             slider:
