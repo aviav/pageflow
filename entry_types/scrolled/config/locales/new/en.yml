@@ -76,6 +76,27 @@ en:
           name: "Before/After"
           tabs:
             general: "Before/After"
+          attributes:
+            left_id:
+              label: Left Image
+            left_alt_text:
+              label: Left Alt Text
+            left_label:
+              label: Left Label
+            right_id:
+              label: Right Image
+            right_alt_text:
+              label: Right Image
+            right_label:
+              label: Right Label
+            vertical:
+              label: Horizontal Divider
+            slider:
+              label: Show Slider
+            slider_handle:
+              label: Show Slider Handle
+            slider_color:
+              label: Slider Color
         videoEmbed:
           name: "Video Embed"
           tabs:

@@ -76,6 +76,27 @@ de:
           name: "Vorher/Nachher"
           tabs:
             general: "Vorher/Nachher"
+          attributes:
+            left_id:
+              label: Linkes Bild
+            left_alt_text:
+              label: Linker Alt-Text
+            left_label:
+              label: Linke Beschriftung
+            right_id:
+              label: Rechtes Bild
+            right_alt_text:
+              label: Rechter Alt-Text
+            right_label:
+              label: Rechte Beschriftung
+            vertical:
+              label: Horizontale Trennlinie
+            slider:
+              label: Schieberegler sichtbar
+            slider_handle:
+              label: Schieberegler-Griff sichtbar
+            slider_color:
+              label: Schieberegler-Farbe
         videoEmbed:
           name: "Video Embed"
           tabs:
