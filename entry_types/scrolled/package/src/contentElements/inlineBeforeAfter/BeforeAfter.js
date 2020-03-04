@@ -1,12 +1,15 @@
-import React, {useRef, useState, useEffect} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import ReactCompareImage from 'react-compare-image';
 import styles from './BeforeAfter.module.css';
+import {useFile} from '../../entryState';
 
 export function BeforeAfter({state,
                  leftImageLabel,
                  rightImageLabel,
                  startPos = 0,
-                 slideMode = 'both',
+                             slideMode = 'both',
+                             before_id,
+                             after_id,
                 }) {
   var [scrollPos, setScrollPos] = useState(
     {
@@ -81,13 +84,15 @@ export function BeforeAfter({state,
     }
   }, [current, setBeforeAfterPos, scrollPos, state, setIsSliding]);
 
-  const awsBucket = '//s3-eu-west-1.amazonaws.com/de.codevise.pageflow.development/pageflow-next/presentation-images/';
-  const beforeImage = awsBucket+'before_after/haldern_church1.jpg';
-  const afterImage = awsBucket+'before_after/haldern_church2.jpg';
+  const beforeImage = useFile({collectionName: 'imageFiles', permaId: before_id});
+  const afterImage = useFile({collectionName: 'imageFiles', permaId: after_id});
+  const beforeImageUrl = beforeImage && beforeImage.urls.large;
+  const afterImageUrl = beforeImage && beforeImage.urls.large;
+  console.log('before image', beforeImage, 'id', before_id, 'url', beforeImageUrl);
 
   return (
     <div ref={beforeAfterRef} className={styles.container}>
-      <ReactCompareImage leftImage={beforeImage} rightImage={afterImage}
+      <ReactCompareImage leftImage={beforeImageUrl} rightImage={afterImageUrl}
                          sliderPosition={beforeAfterPos} setSliderPosition={setBeforeAfterPos}
                          isSliding={isSliding} setIsSliding={setIsSliding}
                          leftImageLabel={leftImageLabel} rightImageLabel={rightImageLabel}

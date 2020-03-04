@@ -29,6 +29,6 @@ export function useFile({collectionName, permaId}) {
   return expandUrls(
     collectionName,
     getItem(entryState.collections, collectionName, permaId),
-    entryState.config.fileUrlTemplates
+    entryState.config && entryState.config.fileUrlTemplates
   );
 }

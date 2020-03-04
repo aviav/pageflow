@@ -24,7 +24,8 @@ export function EntryStateProvider({seed, children}) {
 
 export function useEntryState() {
   const value = useContext(Context);
-  return value.entryState;
+  console.log('context', Context);
+  return (value && value.entryState) || {};
 }
 
 export function useEntryStateDispatch() {

@@ -223,7 +223,7 @@ export function getItems(state, collectionName) {
 }
 
 export function getItem(state, collectionName, key) {
-  if (state[collectionName]) {
+  if (state && state[collectionName]) {
     return state[collectionName].items[key];
   }
 }

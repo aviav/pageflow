@@ -8,6 +8,7 @@ import styles from './InlineBeforeAfter.module.css';
 export function InlineBeforeAfter(props) {
   const ref = useRef();
   const onScreen = useOnScreen(ref, '-50% 0px -50% 0px');
+  console.log('InlineBeforeAfter config', props.configuration);
 
   return (
     <div ref={ref} className={styles.root}>
