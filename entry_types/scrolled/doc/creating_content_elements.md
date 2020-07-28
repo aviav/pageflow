@@ -155,7 +155,14 @@ Run the following command in the root directory of your host application
 [documentation below](#using-transcoded-files-in-storybook-or-percy)):
 
 ```bash
-$ bundle exec rake pageflow_scrolled:storybook:seed:setup[./seed.json]
+$ bundle exec rake pageflow_scrolled:storybook:seed:create_entry
+$ bundle exec rake pageflow_scrolled:storybook:seed:generate_json[./seed.json]
+```
+
+Note that brackets need to be escaped in `zsh`, so that the latter becomes
+
+```bash
+$ bundle exec rake pageflow_scrolled:storybook:seed:generate_json\[./seed.json\]
 ```
 
 Then move the generated `seed.json` file into the
